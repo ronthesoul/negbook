@@ -27,13 +27,13 @@ function distro_check_and_install() {
 
     case "$ID" in
         debian|ubuntu)
-            install_missing_packages "$@" "sudo apt"
+            install_missing_packages "sudo apt" "$@" 
             ;;
         centos|rhel|fedora)
-            install_missing_packages "$@" "sudo yum"
+            install_missing_packages "sudo yum" "$@" 
             ;;
         arch)
-            install_missing_packages "$@" "sudo pacman -S --noconfirm"
+            install_missing_packages "sudo pacman -S --noconfirm" "$@" 
             ;;
         *)
             echo "Unsupported OS: $ID"
