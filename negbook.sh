@@ -39,3 +39,16 @@ distro_check_and_install() {
             ;;
     esac
 }
+
+
+function ask_user_packages(){
+local package_list=$1
+while true; do
+        read -p "Package: " pkg
+        if [[ "$pkg" == "exit" ]]; then
+        break
+        elif [[ -n "$pkg" ]]; then
+        package_list+=("$pkg")
+        fi
+    done
+}
