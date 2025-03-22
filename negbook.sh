@@ -3,7 +3,7 @@
 # Written by: Ron Negrov
 # Date: 3.21.2025
 # Purpose: A library file that has useful functions.
-# Version: 0.0.12
+# Version: 0.0.14
 ###########################
 
 install_missing_packages() {
@@ -24,7 +24,7 @@ distro_check_and_install() {
     source /etc/os-release
 
     case "$ID" in
-        debian|ubuntu|kali)
+        debian|ubuntu)
             install_missing_packages "sudo apt" "$@"
             ;;
         centos|rhel|fedora)
@@ -56,6 +56,29 @@ ask_user_packages() {
         fi
     done
 
-    # Assign back to the original array by name
     eval "$varname=(\"\${temp_list[@]}\")"
+}
+
+
+venv_init() {
+    local full_path="$1"
+
+    echo "Setting up virtual environment with pipenv..."
+
+    if ! command -v pipenv &>/dev/null; then
+        echo "Installing pipenv via pipx..."
+        pipx install pipenv > /dev/null 2>&1 || { echo "Failed to install pipenv"; return 1; }
+        export PATH="$HOME/.local/bin:$PATH"
+    fi
+
+    export PIPENV_VENV_IN_PROJECT=1
+
+    cd "$full_path" || { echo "Cannot access project directory"; return 1; }
+
+    if [[ ! -f Pipfile ]]; then
+        pipenv --python 3 || { echo "Failed to create virtual environment"; return 1; }
+    fi
+    pipenv lock || { echo "Failed to generate Pipfile.lock"; return 1; }
+
+    echo "Virtual environment created at: $(pipenv --venv)"
 }
