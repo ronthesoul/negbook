@@ -1,15 +1,18 @@
-# negbook
+# 📚 negbook
 
 **negbook** is a lightweight Bash utility library meant to be easily imported into your shell scripts and automation tools. It provides reusable functions and helpers to speed up scripting and ensure consistency across projects.
 
 ---
 
-## Purpose
+## 🎯 Purpose
 
 This repository is designed to serve as a modular, drop-in shell library for your Bash-based tooling.
 
-Simply include the following snippet at the top of any Bash script to ensure the library is present and sourced correctly:
+Simply include the following snippet at the top of any Bash script to ensure the library is present and sourced correctly:|
 
+---
+
+## ⚙️ Installation
 ```bash
 library=./lib/negbook.sh
 mkdir -p ./lib
@@ -21,7 +24,5 @@ source "$library"
 
 ---
 
-Author
-Ron Negrov
-GitHub: @ronthesoul
-
+## 👤 Author
+Created by [ronthesoul](https://github.com/ronthesoul).
