@@ -9,9 +9,9 @@
 
 
 function install_missing_packages() {
-    local package_list=("$@")
     local package_manager=$1
     shift
+    local package_list=("$@")
 
     for package in "${package_list[@]}"; do
         if ! command -v "$package" &>/dev/null && ! dpkg -l 2>/dev/null | grep -q "$package"; then
