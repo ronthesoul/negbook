@@ -24,7 +24,7 @@ distro_check_and_install() {
     source /etc/os-release
 
     case "$ID" in
-        debian|ubuntu)
+        debian|ubuntu|kali)
             install_missing_packages "sudo apt" "$@"
             ;;
         centos|rhel|fedora)
