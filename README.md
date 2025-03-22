@@ -8,11 +8,11 @@
 
 This repository is designed to serve as a modular, drop-in shell library for your Bash-based tooling.
 
-Simply include the following snippet at the top of any Bash script to ensure the library is present and sourced correctly:|
-
 ---
 
 ## ⚙️ Installation
+Simply include the following snippet at the top of any Bash script to ensure the library is present and sourced correctly:|
+
 ```bash
 library=./lib/negbook.sh
 mkdir -p ./lib
