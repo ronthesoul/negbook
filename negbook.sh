@@ -41,15 +41,21 @@ distro_check_and_install() {
 }
 
 
-function ask_user_packages(){
-package_list=$1
-echo "Enter package names one by one. Type 'exit' to finish:"
-while true; do
+ask_user_packages() {
+    local varname=$1
+    local pkg
+    local temp_list=()
+
+    echo "Enter package names one by one. Type 'exit' to finish:"
+    while true; do
         read -p "Package: " pkg
         if [[ "$pkg" == "exit" ]]; then
-        break
+            break
         elif [[ -n "$pkg" ]]; then
-        package_list+=("$pkg")
+            temp_list+=("$pkg")
         fi
     done
+
+    # Assign back to the original array by name
+    eval "$varname=(\"\${temp_list[@]}\")"
 }
