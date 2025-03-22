@@ -82,3 +82,20 @@ venv_init() {
 
     echo "Virtual environment created at: $(pipenv --venv)"
 }
+
+git_connect (){
+local username=$1
+local repository=$2
+local full_path=$3
+
+local remote_url="git@github.com:${username}/${repository}.git"
+cd "$full_path" || { echo "Cannot access project directory"; return 1; }
+ if ! git remote get-url origin &>/dev/null; then
+    git remote add origin "$remote_url"
+    echo "Connected to remote: $remote_url"
+    git remote -v
+else
+     echo "Remote 'origin' already exists."
+ fi
+
+}
