@@ -99,3 +99,31 @@ else
  fi
 
 }
+
+
+function validate_ip (){
+local ip=$1
+local regex='^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$'
+
+if [[ $ip =~ $regex ]]; then
+        oct1=${BASH_REMATCH[1]}
+        oct2=${BASH_REMATCH[2]}
+        oct3=${BASH_REMATCH[3]}
+        oct4=${BASH_REMATCH[4]}
+        if (( oct1 >= 0 && oct1 <= 255 )) && \
+            (( oct2 >= 0 && oct2 <= 255 )) && \
+             (( oct3 >= 0 && oct3 <= 255 )) && \
+             (( oct4 >= 0 && oct4 <= 255 ))
+                 then
+                    return 0
+                else
+                    echo "Invalid IP Address"
+                    return 1
+        fi
+    else
+        echo "Invalid IP Address"
+        return 1
+fi
+}
+
+
