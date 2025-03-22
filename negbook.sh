@@ -8,7 +8,7 @@
 . /etc/os-release
 
 
-install_missing_packages() {
+function install_missing_packages() {
     local package_list=("$@")
     local package_manager=$1
     shift
@@ -22,7 +22,7 @@ install_missing_packages() {
     echo "Finished installing packages"
 }
 
-distro_check() {
+function distro_check_and_install() {
     source /etc/os-release
 
     case "$ID" in
