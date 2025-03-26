@@ -126,4 +126,8 @@ if [[ $ip =~ $regex ]]; then
 fi
 }
 
-
+self_delete (){
+path=$1
+rm -rf $path
+echo "negbook has been deleted"
+}
