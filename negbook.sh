@@ -126,8 +126,21 @@ if [[ $ip =~ $regex ]]; then
 fi
 }
 
-self_delete (){
-path=$1
-rm -rf $path
-echo "negbook has been deleted"
+
+
+function download_template() {
+  path="$1"
+  project_name="$2"
+
+  cd "$path" || exit
+  wget https://github.com/startbootstrap/startbootstrap-coming-soon/archive/gh-pages.zip
+  unzip gh-pages.zip
+  mv "startbootstrap-coming-soon-gh-pages/css" "src/$project_name/static"
+  mv "startbootstrap-coming-soon-gh-pages/js" "src/$project_name/static"
+  mv "startbootstrap-coming-soon-gh-pages/assets" "src/$project_name/static"
+  mv "startbootstrap-coming-soon-gh-pages/index.html" "src/$project_name/templates"
+  rm -rf "gh-pages.zip" "startbootstrap-coming-soon-gh-pages"
 }
+ 
+
+
