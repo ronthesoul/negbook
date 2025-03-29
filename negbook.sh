@@ -135,13 +135,32 @@ function download_template() {
   project_name="$2"
 
   cd "$path" || exit
+
   wget https://github.com/startbootstrap/startbootstrap-coming-soon/archive/gh-pages.zip
   unzip gh-pages.zip
-  mv "startbootstrap-coming-soon-gh-pages/css" "src/$project_name/static"
-  mv "startbootstrap-coming-soon-gh-pages/js" "src/$project_name/static"
-  mv "startbootstrap-coming-soon-gh-pages/assets" "src/$project_name/static"
-  mv "startbootstrap-coming-soon-gh-pages/index.html" "src/$project_name/templates"
-  rm -rf "gh-pages.zip" "startbootstrap-coming-soon-gh-pages"
+
+  mkdir -p "src/$project_name/static"
+  mkdir -p "src/$project_name/templates"
+
+  mv "startbootstrap-coming-soon-gh-pages/css" "src/$project_name/static/"
+  mv "startbootstrap-coming-soon-gh-pages/js" "src/$project_name/static/"
+  mv "startbootstrap-coming-soon-gh-pages/assets" "src/$project_name/static/"
+  mv "startbootstrap-coming-soon-gh-pages/index.html" "src/$project_name/templates/"
+
+  rm -rf gh-pages.zip startbootstrap-coming-soon-gh-pages
+
+  cat << EOF >> "src/$project_name/app.py"
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+EOF
 }
  
 
