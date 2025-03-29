@@ -69,6 +69,7 @@ venv_init() {
         echo "Installing pipenv via pipx..."
         pipx install pipenv > /dev/null 2>&1 || { echo "Failed to install pipenv"; return 1; }
         export PATH="$HOME/.local/bin:$PATH"
+        pipx ensurepath
     fi
 
     export PIPENV_VENV_IN_PROJECT=1
