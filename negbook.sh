@@ -69,7 +69,7 @@ venv_init() {
         echo "Installing pipenv via pipx..."
         pipx install pipenv > /dev/null 2>&1 || { echo "Failed to install pipenv"; return 1; }
         export PATH="$HOME/.local/bin:$PATH"
-        pipx ensurepath
+        
     fi
 
     export PIPENV_VENV_IN_PROJECT=1
@@ -82,6 +82,7 @@ venv_init() {
     pipenv lock || { echo "Failed to generate Pipfile.lock"; return 1; }
 
     echo "Virtual environment created at: $(pipenv --venv)"
+    pipx ensurepath
 }
 
 git_connect (){
@@ -144,4 +145,11 @@ function download_template() {
 }
  
 
+function pipenv_download () {
+  local pip_list=("$@")
 
+  for package in "${pip_list[@]}"; do
+    echo "Installing pip package: $package"
+    pipenv install "$package" || echo "Failed to install $package"
+  done
+}
