@@ -172,3 +172,12 @@ function pipenv_download () {
     pipenv install "$package" || echo "Failed to install $package"
   done
 }
+
+# Used to install packages in a specifc file
+install_deb_files_from_dir() {
+    local dir="$1"
+    for deb in "$dir"/*.deb; do
+        echo "Installing $deb"
+        sudo apt install -y "$deb"
+    done
+}
