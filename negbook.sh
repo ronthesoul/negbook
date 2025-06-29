@@ -181,3 +181,7 @@ install_deb_files_from_dir() {
         sudo apt install -y "$deb"
     done
 }
+
+log() {
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOGFILE"
+}
