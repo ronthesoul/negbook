@@ -185,3 +185,71 @@ install_deb_files_from_dir() {
 log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOGFILE"
 }
+
+
+#misc
+readonly BOLD="$(tput bold 2>/dev/null || echo '')"
+readonly GREY="$(tput setaf 8 2>/dev/null || echo '')"
+readonly UNDERLINE="$(tput smul 2>/dev/null || echo '')"
+readonly RED="$(tput setaf 1 2>/dev/null || echo '')"
+readonly GREEN="$(tput setaf 2 2>/dev/null || echo '')"
+readonly YELLOW="$(tput setaf 3 2>/dev/null || echo '')"
+readonly BLUE="$(tput setaf 4 2>/dev/null || echo '')"
+readonly MAGENTA="$(tput setaf 5 2>/dev/null || echo '')"
+readonly CYAN="$(tput setaf 6 2>/dev/null || echo '')"
+readonly NO_COLOR="$(tput sgr0 2>/dev/null || echo '')"
+readonly CLEAR_LAST_MSG="\033[1F\033[0K"
+
+title() {
+	local -r text="$*"
+	printf "%s\n" "${BOLD}${MAGENTA}${text}${NO_COLOR}"
+}
+
+header() {
+	local -r text="$*"
+	printf "%s\n" "${BOLD}${text}${NO_COLOR}"
+}
+
+plain() {
+	local -r text="$*"
+	printf "%s\n" "${text}"
+}
+
+info() {
+	local -r text="$*"
+	printf "%s\n" "${BOLD}${GREY}→${NO_COLOR} ${text}"
+}
+
+warn() {
+	local -r text="$*"
+	printf "%s\n" "${YELLOW}! $*${NO_COLOR}"
+}
+
+error() {
+	local -r text="$*"
+	printf "%s\n" "${RED}✘ ${text}${NO_COLOR}" >&2
+}
+
+success() {
+	local -r text="$*"
+	printf "%s\n" "${GREEN}✓${NO_COLOR} ${text}"
+}
+
+start_task() {
+	local -r text="$*"
+	printf "%s\n" "${BOLD}${GREY}→${NO_COLOR} ${text}..."
+}
+
+end_task() {
+	local -r text="$*"
+	printf "${CLEAR_LAST_MSG}%s\n" "${GREEN}✓${NO_COLOR} ${text}... [DONE]"
+}
+
+fail_task() {
+	local -r text="$*"
+	printf "${CLEAR_LAST_MSG}%s\n" "${RED}✘ ${text}... [FAILED]${NO_COLOR}" >&2
+}
+
+
+
+
