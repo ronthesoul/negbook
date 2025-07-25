@@ -186,6 +186,14 @@ log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOGFILE"
 }
 
+check_root() {
+  if [[ $EUID != 0 ]]; then
+    log "Please run as root (e.g. with sudo)"
+    return 1
+  fi
+  return 0
+}
+
 
 #misc
 readonly BOLD="$(tput bold 2>/dev/null || echo '')"
