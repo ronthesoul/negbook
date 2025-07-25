@@ -186,6 +186,23 @@ log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOGFILE"
 }
 
+logv2() {
+  local level="$1"
+  shift
+  local msg="$*"
+
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$level] $msg" | tee -a "$LOGFILE"
+
+  case "$level" in
+    success) success "$msg" ;;
+    warn)    warn "$msg" ;;
+    error)   error "$msg" ;;
+    info)    info "$msg" ;;
+    *)       echo "$msg" ;;
+  esac
+}
+
+
 check_root() {
   if [[ $EUID != 0 ]]; then
     log "Please run as root (e.g. with sudo)"
